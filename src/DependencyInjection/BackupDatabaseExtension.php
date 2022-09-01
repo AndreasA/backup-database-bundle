@@ -16,7 +16,7 @@ class BackupDatabaseExtension extends ConfigurableExtension
         $locator = new FileLocator($confDir);
         $loader = new YamlFileLoader($container, $locator);
 
-        $loader->load(sprintf('%1$s/%2$s.yaml', $confDir, 'services.yaml'), 'yaml');
+        $loader->load(sprintf('%1$s/%2$s.yaml', $confDir, 'services'), 'yaml');
 
         $this->setDatabaseUrl($mergedConfig, $container);
         $this->setMysqlArguments($mergedConfig, $container);
