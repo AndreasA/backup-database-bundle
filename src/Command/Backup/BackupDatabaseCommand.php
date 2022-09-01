@@ -86,6 +86,9 @@ class BackupDatabaseCommand extends Command
                 $compressProcess->stop(0);
             }
 
+            // Remove the empty file created by the command's output pipe.
+            $this->filesystem->remove($backupPath);
+
             throw $throwable;
         } finally {
             // Remove potentially created named pipe.
