@@ -18,19 +18,26 @@ class BackupDatabaseExtension extends ConfigurableExtension
 
         $loader->load(sprintf('%1$s/%2$s.yaml', $confDir, 'services'), 'yaml');
 
-        $this->setDatabaseUrl($mergedConfig, $container);
-        $this->setMysqlArguments($mergedConfig, $container);
+        $this->setBackupChainArguments($mergedConfig, $container);
+        $this->setCommandArguments($mergedConfig, $container);
+        $this->setMysqlBackupHandlerArguments($mergedConfig, $container);
     }
 
-    private function setDatabaseUrl(array $mergedConfig, ContainerBuilder $container): void
+    private function setCommandArguments(array $mergedConfig, ContainerBuilder $container): void
+    {
+        $definition = $container->getDefinition('andreasa.backup_database.command.backup_database_command');
+
+        $definition->replaceArgument('$targetDirectory', $mergedConfig['target_directory'] ?? '');
+    }
+
+    private function setBackupChainArguments(array $mergedConfig, ContainerBuilder $container): void
     {
         $definition = $container->getDefinition('andreasa.backup_database.handler.backup_database_handler_chain');
 
         $definition->replaceArgument('$databaseUrl', $mergedConfig['database_url'] ?? '');
-        $definition->replaceArgument('$targetDirectory', $mergedConfig['target_directory'] ?? '');
     }
 
-    private function setMysqlArguments(array $mergedConfig, ContainerBuilder $container): void
+    private function setMysqlBackupHandlerArguments(array $mergedConfig, ContainerBuilder $container): void
     {
         $mysqlConfig = $mergedConfig['mysql'] ?? [];
 
