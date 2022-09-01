@@ -7,8 +7,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class AndreasaBackupDatabaseExtension extends ConfigurableExtension
+class BackupDatabaseExtension extends ConfigurableExtension
 {
+    public function getAlias(): string
+    {
+        return 'andreasa_backup_database';
+    }
+
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
         $confDir = __DIR__ . '/../../config';

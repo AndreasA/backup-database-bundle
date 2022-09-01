@@ -6,10 +6,12 @@ use AndreasA\BackupDatabaseBundle\DependencyInjection\Compiler\BackupDatabaseHan
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AndreasaBackupDatabaseBundle extends Bundle
+class BackupDatabaseBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new BackupDatabaseHandlerPass());
     }
+
+
 }
