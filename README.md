@@ -12,6 +12,7 @@ A Symfony bundle that provides a command to easily backup databases.
   - `mkfifo`
   - `mysqldump`
   - `bzip2`
+- For now the above commands have to be available globally in the current path configuration, so they can be called without requiring the absolute path.
 
 ## Setup
 
