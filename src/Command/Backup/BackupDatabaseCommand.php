@@ -11,6 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
+use Throwable;
 use UnexpectedValueException;
 
 class BackupDatabaseCommand extends Command
@@ -50,6 +51,9 @@ class BackupDatabaseCommand extends Command
         $this->setDescription('Creates a database backup.');
     }
 
+    /**
+     * @throws Throwable
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -62,6 +66,7 @@ class BackupDatabaseCommand extends Command
         $this->filesystem->mkdir($this->targetDirectory);
 
         $namedPipe = $this->createNamedPipe();
+        $compressProcess = null;
 
         try {
             $compressProcess = $this->createCompressProcess($namedPipe, $backupPath);
@@ -71,6 +76,12 @@ class BackupDatabaseCommand extends Command
             $dumpProcess->run();
 
             $compressProcess->wait();
+        } catch (Throwable $throwable) {
+            if (null !== $compressProcess && $compressProcess->isRunning()) {
+                $compressProcess->stop(0);
+            }
+
+            throw $throwable;
         } finally {
             // Remove potentially created named pipe.
             $this->filesystem->remove($namedPipe);
