@@ -59,6 +59,14 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
         return 'mysql' === $scheme;
     }
 
+    /**
+     * Some errors like missing PROCESS privilege result in success exit code but with corresponding error.
+     */
+    public function hasError(Process $process, string $errorOutput): bool
+    {
+        return 0 === strpos($errorOutput, 'mysqldump: Error:');
+    }
+
     private function getIgnoredTablesCommandLineParts(): array
     {
         return array_map(static function (int $key) {

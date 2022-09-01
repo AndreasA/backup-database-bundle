@@ -11,4 +11,6 @@ interface BackupDatabaseHandlerInterface
     public function createDumpProcess(string $targetFile, array $params): Process;
 
     public function supports(string $scheme): bool;
+
+    public function hasError(Process $process, string $errorOutput): bool;
 }

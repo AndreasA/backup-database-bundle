@@ -27,13 +27,7 @@ class BackupDatabaseHandlerChain
 
     public function createDumpProcess(string $targetFile): Process
     {
-        $params = parse_url($this->databaseUrl);
-
-        $scheme = $params['scheme'] ?? null;
-
-        if (false === is_string($scheme) || '' === $scheme) {
-            throw new UnexpectedValueException('Database URL and/or scheme is invalid or missing.');
-        }
+        $scheme = $this->getScheme();
 
         foreach ($this->handlers as $handler) {
             if (false === $handler->supports($scheme)) {
@@ -50,5 +44,33 @@ class BackupDatabaseHandlerChain
         }
 
         throw new RuntimeException(sprintf('Scheme "%1$s" is not supported.', $scheme));
+    }
+
+    public function hasError(Process $process, string $errorOutput): bool
+    {
+        $scheme = $this->getScheme();
+
+        foreach ($this->handlers as $handler) {
+            if (false === $handler->supports($scheme)) {
+                continue;
+            }
+
+            return $handler->hasError($process, $errorOutput);
+        }
+
+        throw new RuntimeException(sprintf('Scheme "%1$s" is not supported.', $scheme));
+    }
+
+    private function getScheme(): string
+    {
+        $params = parse_url($this->databaseUrl);
+
+        $scheme = $params['scheme'] ?? null;
+
+        if (false === is_string($scheme) || '' === $scheme) {
+            throw new UnexpectedValueException('Database URL and/or scheme is invalid or missing.');
+        }
+
+        return $scheme;
     }
 }

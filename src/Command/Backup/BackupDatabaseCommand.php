@@ -101,8 +101,7 @@ class BackupDatabaseCommand extends Command
         $isFailure =
             false === $dumpProcess->isSuccessful() ||
             false === $compressProcess->isSuccessful() ||
-            // Some errors like missing PROCESS privilege result in success exit code but with corresponding error.
-            0 === strpos($errorOutput, 'mysqldump: Error: ');
+            $this->handler->hasError($dumpProcess, $errorOutput);
 
         if ($isFailure) {
             // Remove the empty file created by the command's output pipe.
