@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('database_url')->defaultValue('')->end()
-                ->scalarNode('target_directory')->defaultValue('')->end()
+                ->scalarNode('target_directory')->defaultValue('%kernel.project_dir%/var/backup')->end()
             ->append($this->createMysqlSection())
             ->end();
         // @formatter:on
