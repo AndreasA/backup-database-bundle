@@ -4,7 +4,7 @@ services:
         autoconfigure: false
         public: false
 
-        andreas_a.backup_database.command.backup_database_command:
+    andreas_a.backup_database.command.backup_database_command:
         arguments:
             $filesystem: '@filesystem'
             $handler: '@andreas_a.backup_database.handler.backup_database_handler_chain'
