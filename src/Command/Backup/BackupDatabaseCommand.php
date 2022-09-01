@@ -143,7 +143,7 @@ class BackupDatabaseCommand extends Command
 
     private function createCompressProcess(string $namedPipe, string $backupPath): Process
     {
-        $process = Process::fromShellCommandline(implode(' ', $this->getCompressCommandLineParts()));
+        $process = Process::fromShellCommandline('bzip2 < "$DB_CONTENT_PIPE" > "$DB_BACKUP_PATH"');
 
         $process->setPty(false);
         $process->setTimeout(null);
@@ -155,10 +155,5 @@ class BackupDatabaseCommand extends Command
         ]);
 
         return $process;
-    }
-
-    private function getCompressCommandLineParts(): array
-    {
-        return ['bzip2', '<', '"$DB_CONTENT_PIPE"', '>', '"$DB_BACKUP_PATH"'];
     }
 }
