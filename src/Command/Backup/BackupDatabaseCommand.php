@@ -17,7 +17,7 @@ use UnexpectedValueException;
 
 class BackupDatabaseCommand extends Command
 {
-    protected static $defaultName = 'andreasa:backup:database';
+    protected static $defaultName = 'andreas-a:backup:database';
 
     /**
      * @var Filesystem

@@ -1,7 +1,7 @@
 {
     "description": "A Symfony bundle that provides a command to easily backup databases. ",
     "license": "MIT",
-    "name": "andreasa/backup-database-bundle",
+    "name": "andreas-a/backup-database-bundle",
     "type": "symfony-bundle",
     "autoload": {
         "psr-4": {

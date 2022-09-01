@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class BackupDatabaseExtension extends ConfigurableExtension
+class AndreasABackupDatabaseExtension extends ConfigurableExtension
 {
     public function getAlias(): string
     {
@@ -30,14 +30,14 @@ class BackupDatabaseExtension extends ConfigurableExtension
 
     private function setCommandArguments(array $mergedConfig, ContainerBuilder $container): void
     {
-        $definition = $container->getDefinition('andreasa.backup_database.command.backup_database_command');
+        $definition = $container->getDefinition('andreas_a.backup_database.command.backup_database_command');
 
         $definition->replaceArgument('$targetDirectory', $mergedConfig['target_directory'] ?? '');
     }
 
     private function setBackupChainArguments(array $mergedConfig, ContainerBuilder $container): void
     {
-        $definition = $container->getDefinition('andreasa.backup_database.handler.backup_database_handler_chain');
+        $definition = $container->getDefinition('andreas_a.backup_database.handler.backup_database_handler_chain');
 
         $definition->replaceArgument('$databaseUrl', $mergedConfig['database_url'] ?? '');
     }
@@ -46,7 +46,7 @@ class BackupDatabaseExtension extends ConfigurableExtension
     {
         $mysqlConfig = $mergedConfig['mysql'] ?? [];
 
-        $definition = $container->getDefinition('andreasa.backup_database.handler.mysql_backup_database_handler');
+        $definition = $container->getDefinition('andreas_a.backup_database.handler.mysql_backup_database_handler');
 
         $definition->replaceArgument('$ignoredTables', $mysqlConfig['ignored_tables'] ?? []);
         $definition->replaceArgument('$options', $mysqlConfig['options'] ?? []);

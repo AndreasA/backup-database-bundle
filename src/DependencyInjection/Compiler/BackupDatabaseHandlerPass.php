@@ -11,11 +11,11 @@ class BackupDatabaseHandlerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->has('andreasa.backup_database.handler.backup_database_handler_chain')) {
+        if (false === $container->has('andreas_a.backup_database.handler.backup_database_handler_chain')) {
             return;
         }
 
-        $definition = $container->findDefinition('andreasa.backup_database.handler.backup_database_handler_chain');
+        $definition = $container->findDefinition('andreas_a.backup_database.handler.backup_database_handler_chain');
         $services = $container->findTaggedServiceIds(BackupDatabaseHandlerInterface::SERVICE_TAG);
 
         foreach ($services as $id => $_) {
