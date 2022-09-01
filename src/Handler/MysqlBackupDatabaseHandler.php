@@ -69,7 +69,7 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
     private function getDumpCommandLineParts(): array
     {
         return array_merge(
-            ['mysqldump', '--defaults-file=/dev/stdin'],
+            ['mysqldump', '--defaults-file=/dev/stdin'], // Defaults file has to be the first option in order to work.
             $this->getIgnoredTablesCommandLineParts(),
             ['-h', '"$DB_HOST"', '-P', '"$DB_PORT"', '"$DB_NAME"', '>', '"$DB_TARGET_FILE"'],
         );
@@ -83,7 +83,7 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
     {
         return sprintf(
             <<<'CONTENT'
-            [client]
+            [mysqldump]
             %1$s
             %2$s
             password=%3$s
@@ -99,6 +99,7 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
 
     private function getPlatformSpecificOptions(): array
     {
+        // Defaults file has to be the first option in order to work.
         $process = Process::fromShellCommandline('mysqldump --defaults-file=/dev/stdin --help');
 
         $process->setPty(false);
@@ -106,7 +107,7 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
         $process->setTty(false);
 
         $template = <<<'CONTENT'
-        [client]
+        [mysqldump]
         %1$s
         CONTENT;
 
