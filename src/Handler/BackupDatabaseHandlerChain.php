@@ -27,7 +27,8 @@ class BackupDatabaseHandlerChain
 
     public function createDumpProcess(string $targetFile): Process
     {
-        $scheme = $this->getScheme();
+        $params = $this->getParams();
+        $scheme = $this->getScheme($params);
 
         foreach ($this->handlers as $handler) {
             if (false === $handler->supports($scheme)) {
@@ -48,7 +49,7 @@ class BackupDatabaseHandlerChain
 
     public function hasError(Process $process, string $errorOutput): bool
     {
-        $scheme = $this->getScheme();
+        $scheme = $this->getScheme($this->getParams());
 
         foreach ($this->handlers as $handler) {
             if (false === $handler->supports($scheme)) {
@@ -61,10 +62,13 @@ class BackupDatabaseHandlerChain
         throw new RuntimeException(sprintf('Scheme "%1$s" is not supported.', $scheme));
     }
 
-    private function getScheme(): string
+    private function getParams(): array
     {
-        $params = parse_url($this->databaseUrl);
+        return parse_url($this->databaseUrl);
+    }
 
+    private function getScheme(array $params): string
+    {
         $scheme = $params['scheme'] ?? null;
 
         if (false === is_string($scheme) || '' === $scheme) {
