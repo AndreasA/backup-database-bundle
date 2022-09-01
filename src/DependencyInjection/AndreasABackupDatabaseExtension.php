@@ -9,11 +9,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 class AndreasABackupDatabaseExtension extends ConfigurableExtension
 {
-    public function getAlias(): string
-    {
-        return 'andreasa_backup_database';
-    }
-
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
         $confDir = __DIR__ . '/../../config';
