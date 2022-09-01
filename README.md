@@ -16,7 +16,7 @@ A Symfony bundle that provides a command to easily backup databases.
 
 ## Setup
 
-- Add `AndreasA\BackupDatabaseBundle\BackupDatabaseBundle::class => ['all' => true],` to `config/bundles.php`, if it has not been added by `symfony/flex` already.
+- Add `AndreasA\BackupDatabaseBundle\AndreasABackupDatabaseBundle::class => ['all' => true],` to `config/bundles.php`, if it has not been added by `symfony/flex` already.
 - Add the file `config/packages/andreas_a_backup_database.yaml` with a content like (example configuration):
   ```yaml
   andreas_a_backup_database:
