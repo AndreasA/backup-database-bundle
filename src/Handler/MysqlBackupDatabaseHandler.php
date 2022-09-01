@@ -84,16 +84,16 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
         return sprintf(
             <<<'CONTENT'
             [client]
-            %3$s
-            %4$s
-            password=%1$s
-            user=%2$s
+            %1$s
+            %2$s
+            password=%3$s
+            user=%4$s
             CONTENT
             ,
-            $password,
-            $user,
             implode(PHP_EOL, $this->options),
             implode(PHP_EOL, $this->getPlatformSpecificOptions()),
+            $password,
+            $user,
         );
     }
 
