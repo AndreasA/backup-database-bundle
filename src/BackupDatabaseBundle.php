@@ -12,6 +12,4 @@ class BackupDatabaseBundle extends Bundle
     {
         $container->addCompilerPass(new BackupDatabaseHandlerPass());
     }
-
-
 }
