@@ -7,7 +7,7 @@ services:
         andreas_a.backup_database.command.backup_database_command:
         arguments:
             $filesystem: '@filesystem'
-            $handler: '@andreasa.backup_database.handler.backup_database_handler_chain'
+            $handler: '@andreas_a.backup_database.handler.backup_database_handler_chain'
             $targetDirectory: ''
         class: 'AndreasA\BackupDatabaseBundle\Command\Backup\BackupDatabaseCommand'
         tags: [ 'console.command' ]
