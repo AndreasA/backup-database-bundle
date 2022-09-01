@@ -120,7 +120,7 @@ class BackupDatabaseCommand extends Command
 
     private function createNamedPipe(): string
     {
-        $namedPipe = tempnam($this->targetDirectory, 'db_compress_fifo_');
+        $namedPipe = sprintf('%1$s/%2$s', $this->targetDirectory, bin2hex(random_bytes(32)));
 
         $process = new Process(['mkfifo', $namedPipe]);
 
