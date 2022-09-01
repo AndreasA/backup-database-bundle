@@ -28,7 +28,7 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
         $this->platformSpecificOptions = $platformSpecificOptions;
     }
 
-    public function createDumpProcess(string $targetFile, array $databaseParameters): Process
+    public function createDumpProcess(string $targetFile, array $params): Process
     {
         $process = Process::fromShellCommandline(implode(' ', $this->getDumpCommandLineParts()));
 

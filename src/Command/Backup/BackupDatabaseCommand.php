@@ -5,6 +5,7 @@ namespace AndreasA\BackupDatabaseBundle\Command\Backup;
 use AndreasA\BackupDatabaseBundle\Handler\BackupDatabaseHandlerChain;
 use DateTime;
 use DateTimeInterface;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -74,6 +75,10 @@ class BackupDatabaseCommand extends Command
 
             $dumpProcess = $this->handler->createDumpProcess($namedPipe);
             $dumpProcess->run();
+
+            if (false === $dumpProcess->isSuccessful()) {
+                throw new RuntimeException($dumpProcess->getErrorOutput());
+            }
 
             $compressProcess->wait();
         } catch (Throwable $throwable) {
