@@ -6,7 +6,7 @@ use AndreasA\BackupDatabaseBundle\DependencyInjection\Compiler\BackupDatabaseHan
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class BackupDatabaseBundle extends Bundle
+class AndreasaBackupDatabaseBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

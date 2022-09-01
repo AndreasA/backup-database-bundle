@@ -17,9 +17,10 @@ class Configuration implements ConfigurationInterface
 
         // prettier-ignore
         $rootNode
+            ->addDefaultsIfNotSet()
             ->children()
-                ->scalarNode('database_url')->end()
-                ->scalarNode('target_directory')->end()
+                ->scalarNode('database_url')->defaultValue('%env(resolve:DATABASE_URL)%')->end()
+                ->scalarNode('target_directory')->defaultValue('%kernel.project_dir%/var/backup')->end()
             ->append($this->createMysqlSection())
             ->end();
         // @formatter:on
@@ -33,6 +34,7 @@ class Configuration implements ConfigurationInterface
 
         // @formatter:off
         $rootNode
+            ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('ignored_tables')
                     ->defaultValue([])
