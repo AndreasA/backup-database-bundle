@@ -26,12 +26,12 @@ class BackupDatabaseExtension extends ConfigurableExtension
     {
         $definition = $container->getDefinition('andreasa.backup_database.handler.backup_database_handler_chain');
 
-        $definition->replaceArgument('$databaseUrl', $mergedConfig['database']['url'] ?? '');
+        $definition->replaceArgument('$databaseUrl', $mergedConfig['url'] ?? '');
     }
 
     private function setMysqlArguments(array $mergedConfig, ContainerBuilder $container): void
     {
-        $mysqlConfig = $mergedConfig['database']['mysql'] ?? [];
+        $mysqlConfig = $mergedConfig['mysql'] ?? [];
 
         $definition = $container->getDefinition('andreasa.backup_database.handler.mysql_backup_database_handler');
 

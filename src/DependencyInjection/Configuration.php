@@ -10,7 +10,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('andreasa_backup');
+        $treeBuilder = new TreeBuilder('andreasa_backup_database');
 
         // @formatter:off
         $rootNode = $treeBuilder->getRootNode();
@@ -18,26 +18,12 @@ class Configuration implements ConfigurationInterface
         // prettier-ignore
         $rootNode
             ->children()
-                ->append($this->createDatabaseSection())
+                ->scalarNode('url')->defaultNull()->end()
+            ->append($this->createMysqlSection())
             ->end();
         // @formatter:on
 
         return $treeBuilder;
-    }
-
-    protected function createDatabaseSection(): ArrayNodeDefinition
-    {
-        $rootNode = (new TreeBuilder('database'))->getRootNode();
-
-        // @formatter:off
-        $rootNode
-            ->children()
-                ->scalarNode('url')->defaultNull()->end()
-                ->append($this->createMysqlSection())
-            ->end();
-        // @formatter:on
-
-        return $rootNode;
     }
 
     protected function createMysqlSection(): ArrayNodeDefinition
