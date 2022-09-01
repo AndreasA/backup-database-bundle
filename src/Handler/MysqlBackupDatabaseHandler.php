@@ -71,7 +71,7 @@ class MysqlBackupDatabaseHandler implements BackupDatabaseHandlerInterface
         return array_merge(
             ['mysqldump', '--defaults-file=/dev/stdin'],
             $this->getIgnoredTablesCommandLineParts(),
-            ['-h', '"$DB_HOST"', '-P', '"$DB_PORT"', '"$DB_NAME"', '>', '"$DB_CONTENT_PIPE"'],
+            ['-h', '"$DB_HOST"', '-P', '"$DB_PORT"', '"$DB_NAME"', '>', '"$DB_TARGET_FILE"'],
         );
     }
 
