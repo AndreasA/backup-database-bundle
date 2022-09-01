@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    andreasa.backup_database.command.backup_database_command:
+        arguments:
+            $filesystem: '@filesystem'
+            $handler: '@andreasa.backup_database.handler.backup_database_handler_chain'
+            $targetDirectory: ''
+        class: 'AndreasA\BackupDatabaseBundle\Command\Backup\BackupDatabaseCommand'
+        tags: [ 'console.command' ]
+
+    andreasa.backup_database.handler.mysql_backup_database_handler:
+        arguments:
+            $ignoredTables: [ ]
+            $options: [ ]
+            $platformSpecificOptions: [ ]
+        class: 'AndreasA\BackupDatabaseBundle\Handler\MysqlBackupDatabaseHandler'
+        tags: [ !php/const AndreasA\BackupDatabaseBundle\Handler\BackupDatabaseHandlerInterface::SERVICE_TAG ]
+
+    andreasa.backup_database.handler.backup_database_handler_chain:
+        arguments:
+            $databaseUrl: ''
+        class: 'AndreasA\BackupDatabaseBundle\Handler\BackupDatabaseHandlerChain'

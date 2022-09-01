@@ -2,7 +2,14 @@
 
 namespace AndreasA\BackupDatabaseBundle;
 
-class BackupDatabaseBundle
-{
+use AndreasA\BackupDatabaseBundle\DependencyInjection\Compiler\BackupDatabaseHandlerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+class BackupDatabaseBundle extends Bundle
+{
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new BackupDatabaseHandlerPass());
+    }
 }
