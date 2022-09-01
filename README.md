@@ -45,3 +45,7 @@ A Symfony bundle that provides a command to easily backup databases.
   - `ignored_tables`: Tables to be ignored during backup. Can also be set to `[]`, if no tables should be ignored.
   - `options`: These options are used during backup and provided using the MySQL configuration file syntax. The `mysqldump` command has to support these options. Can also be set to `[]`, if no additional options are necessary.
   - `platform_specific_options`: Basically the same as `options` but here the bundle first checks if the `mysqldump` command supports these options. This is relevant, if you do not know the used `mysqldump` version. Can also be set to `[]`, if no platform specific options are necessary.
+
+## Command
+
+The bundle provides the Symfony command `andreasa:backup:database`. It uses the configuration above to create a database backup and can e.g. be used during deployments.
