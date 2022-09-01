@@ -18,7 +18,8 @@ class Configuration implements ConfigurationInterface
         // prettier-ignore
         $rootNode
             ->children()
-                ->scalarNode('url')->defaultNull()->end()
+                ->scalarNode('database_url')->defaultValue('')->end()
+                ->scalarNode('target_directory')->defaultValue('')->end()
             ->append($this->createMysqlSection())
             ->end();
         // @formatter:on
