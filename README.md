@@ -2,7 +2,7 @@
 
 A Symfony bundle that provides a command to easily backup databases.
 
-**Note**: For now only MySQL is supported. It should also work with MariaDB, but the command has not been tested for it.
+**Note**: For now only MySQL is supported. It should also support MariaDB, but that has not been verified.
 
 ## Requirements
 
