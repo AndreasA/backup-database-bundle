@@ -1,5 +1,9 @@
 # Backup database bundle
 
+**This bundle is not maintained anymore.**
+
+## General
+
 A Symfony bundle that provides a command to easily backup databases.
 
 **Note**: For now only MySQL is supported. It should also support MariaDB, but that has not been verified.
